@@ -1,0 +1,55 @@
+@use '../../styles/mixins';
+
+.footer {
+  ul {
+    li {
+      margin-bottom: 10px;
+
+      a {
+        color: inherit;
+      }
+    }
+  }
+
+  &_footerContainer {
+    max-width: 1458px;
+    padding: 0 15px;
+    margin: 0 auto;
+
+    &_inner {
+      display: flex;
+      justify-content: space-between;
+
+      @include mixins.md {
+        display: none;
+      }
+    }
+
+    &_politics {
+      display: flex;
+      margin-top: 20px;
+      justify-content: end;
+
+      li {
+        list-style: disc;
+        text-decoration: underline;
+      }
+
+      @include mixins.sm {
+        margin-left: 15px;
+      }
+    }
+  }
+
+  &_mobile {
+    display: none;
+
+    @include mixins.md {
+     display: block;
+    }
+  }
+}
+
+
+
+

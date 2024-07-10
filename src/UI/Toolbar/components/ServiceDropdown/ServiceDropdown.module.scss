@@ -1,0 +1,61 @@
+@use '../../../../styles/mixins';
+
+$arrowRightIconPath: '/img/header/icons/arrow-right-icon.svg';
+
+.serviceDropdown {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 270px;
+
+  @include mixins.xl {
+    left: -50px !important;
+    width: fit-content !important;
+  }
+
+  ul {
+    margin: 0 !important;
+  }
+
+  &_button {
+    background-color: #0C0C0C !important;
+    color: white !important;
+    font-size: 16px !important;
+
+    @include mixins.xl {
+      padding: 0 !important;
+      font-size: 24px !important;
+      transition: all 0.4s ease !important;
+
+      &:hover {
+        scale: 1.05 !important;
+      }
+    }
+
+    &:focus {
+      box-shadow: none !important;
+    }
+  }
+
+  &_item {
+    background-color: #131313 !important;
+    color: white !important;
+    width: 270px;
+    font-size: 16px !important;
+
+    span {
+      padding: 10px 20px;
+      border-bottom: 1px solid #515151;
+      display: block;
+      width: 100%;
+
+      &:hover {
+        border-bottom: 1px solid white;
+      }
+    }
+
+    &_menu {
+      background: url('#{$arrowRightIconPath}') no-repeat right center;
+    }
+  }
+}
