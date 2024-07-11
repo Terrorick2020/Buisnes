@@ -1,4 +1,4 @@
-const {User} = require('../models/user')
+const {User} = require('../models/client')
 const pagination = require('../services/pagination')
 const { validationResult, matchedData,  } = require('express-validator');
 class Manager{

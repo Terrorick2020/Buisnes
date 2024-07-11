@@ -3,7 +3,7 @@ const app = express();
 require('dotenv').config();
 const PORT = process.env.PORT || 3000;
 const cookieParser = require('cookie-parser');
-const userRouter = require('./routers/userRouter.js')
+const userRouter = require('./routers/clientRouter.js')
 const profileRouter = require('./routers/profileRouter.js')
 
 app.use(express.json());

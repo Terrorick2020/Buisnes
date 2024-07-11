@@ -1,4 +1,4 @@
-const {User} = require('../models/user')
+const {User} = require('../models/client')
 class EmailValidation{
     async notInUse(value){
         const user = await User.findOne({where:{email:value}});

@@ -1,4 +1,4 @@
-const {User} = require('../models/user')
+const {User} = require('../models/client')
 const {Gender} = require('../models/gender')
 const EmailValidation = require('../services/emailValidation')
 const { check } = require('express-validator')

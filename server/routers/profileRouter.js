@@ -4,7 +4,7 @@ const userRouter = express.Router();
 const {  param, body} = require('express-validator');
 const verifyToken = require('../middlewares/verifyToken.js')
 const upload = require('../config/multerConf');
-const { User } = require("../models/user.js");
+const { User } = require("../models/client.js");
 const isOwner = require("../middlewares/isOwner.js");
 const validation = require("../middlewares/validation.js");
 

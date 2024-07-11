@@ -1,9 +1,8 @@
 const {DataTypes} = require("sequelize");
 const sequelize = require('../config/db')
-const {Gender} = require('./gender.js')
 const bcrypt = require('bcrypt')
 
-const User = sequelize.define("user", {
+const Client = sequelize.define("client", {
     id: {
         type: DataTypes.BIGINT,
         autoIncrement: true,
@@ -49,12 +48,7 @@ const User = sequelize.define("user", {
     }
 });
 
-User.belongsTo(Gender)
-Gender.hasMany(User)
-const genderArray=[{name:"Мужской"}, {name:"Женский"}]
-sequelize.sync({force: true}).then(async function(res){
-    if((await Gender.findAll()).length==0)
-        await Gender.bulkCreate(genderArray, { validate: true })
+Client.sync({force: true}).then(async function(res){
 })
 
-module.exports = {User}
+module.exports = {Client}
