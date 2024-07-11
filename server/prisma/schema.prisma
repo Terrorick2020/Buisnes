@@ -16,28 +16,33 @@ datasource db {
 model Client {
   id    Int     @default(autoincrement()) @id
   phone String  @unique
+  email String  @unique
   name  String
+  lastname  String
   password String
   orders  Order[]
 }
 model Worker {
   id    Int     @default(autoincrement()) @id
   phone String  @unique
+  email String  @unique
   name  String
+  lastname  String
   password String
   devices Device[]
+  services  Service[]
   orders Order[]
   latitude  Float
   longitude Float
 }
 model Category {
   id    Int     @default(autoincrement()) @id
-  name  String
+  name  String  @unique
   subcategories Subcategory[]  
 }
 model Subcategory {
   id    Int     @default(autoincrement()) @id
-  name  String
+  name  String  @unique
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
   devices Device[]
@@ -49,18 +54,40 @@ model Device {
   subcategory Subcategory @relation(fields: [subcategoryId], references: [id])
   subcategoryId Int
   orders  Order[]
+  repairTypes RepairType[]
+  services  Service[]
 }
 model Order {
   id    Int     @default(autoincrement()) @id
   name  String
   client   Client @relation(fields: [clientId], references: [id])
   clientId Int
-  status Status
+  status Status @default(Created)
   worker  Worker? @relation(fields: [workerId], references: [id])
   workerId Int?
   device  Device @relation(fields: [deviceId], references: [id])
   deviceId Int
+  services  Service[]
   paymentType PaymentType?
+  price Float
+}
+model RepairType {
+  id    Int     @default(autoincrement()) @id
+  name  String
+  device  Device[]
+  services  Service[]
+}
+
+model Service {
+  id    Int     @default(autoincrement()) @id
+  price Float
+  repairType RepairType @relation(fields: [repairTypeId], references: [id])
+  repairTypeId Int
+  worker  Worker @relation(fields: [workerId], references: [id])
+  workerId Int
+  device  Device @relation(fields: [deviceId], references: [id])
+  deviceId Int
+  orders Order[]
 }
 
 enum Status {

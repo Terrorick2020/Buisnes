@@ -10,11 +10,12 @@ class Manager{
             const errors = validationResult(req);
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
             
-            const {firstname, lastname, phone, password, repass} = matchedData(req)
+            const {name, lastname, phone, email, password, repass} = matchedData(req)
             const client = await Client.create({data:{
-                firstname,
+                name,
                 lastname,
-                phone,
+                phone:req.body.phone,
+                email,
                 password
             }})
             const token = jwt.sign({id:client.id, phone:client.phone}, process.env.TOKEN_SECRET, { expiresIn: '1h' });
