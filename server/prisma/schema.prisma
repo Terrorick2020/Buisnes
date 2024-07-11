@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Client {
+  id    Int     @default(autoincrement()) @id
+  phone String  @unique
+  name  String
+  password String
+  orders  Order[]
+}
+model Worker {
+  id    Int     @default(autoincrement()) @id
+  phone String  @unique
+  name  String
+  password String
+  devices Device[]
+  orders Order[]
+  latitude  Float
+  longitude Float
+}
+model Category {
+  id    Int     @default(autoincrement()) @id
+  name  String
+  subcategories Subcategory[]  
+}
+model Subcategory {
+  id    Int     @default(autoincrement()) @id
+  name  String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  devices Device[]
+}
+model Device {
+  id    Int     @default(autoincrement()) @id
+  name  String
+  workers Worker[]
+  subcategory Subcategory @relation(fields: [subcategoryId], references: [id])
+  subcategoryId Int
+  orders  Order[]
+}
+model Order {
+  id    Int     @default(autoincrement()) @id
+  name  String
+  client   Client @relation(fields: [clientId], references: [id])
+  clientId Int
+  status Status
+  worker  Worker? @relation(fields: [workerId], references: [id])
+  workerId Int?
+  device  Device @relation(fields: [deviceId], references: [id])
+  deviceId Int
+  paymentType PaymentType?
+}
+
+enum Status {
+  Created
+  Active
+  Cancelled
+  Paused
+  Finished
+  Accepted
+}
+enum PaymentType {
+  Card 
+  Cash
+}

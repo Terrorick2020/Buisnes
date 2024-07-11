@@ -1,5 +1,5 @@
-const {User} = require('../models/client')
-const {Gender} = require('../models/gender')
+const prisma=require('../config/db')
+const Client = prisma.client
 const EmailValidation = require('../services/emailValidation')
 const { check } = require('express-validator')
 class Validator{

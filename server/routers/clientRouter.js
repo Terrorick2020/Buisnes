@@ -7,7 +7,7 @@ const {isInUse, notInUse} = require('../services/emailValidation.js')
  
 clientRouter.post('/register', [
     body('firstname').notEmpty().withMessage('Введите имя'),
-    body('email').notEmpty().withMessage('Введите email').isEmail().custom(isInUse),
+    body('phone').notEmpty().withMessage('Введите email').isEmail().custom(isInUse),
     body('password').notEmpty().withMessage('Введите пароль').isLength({ min: 6 }).withMessage('Минимальная длина пароля - 6 символов'),
     body('repass').custom((value, {req}) => value === req.body.password).withMessage('Пароли не совпадают')  
   ], 

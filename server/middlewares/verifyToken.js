@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const {User} = require('../models/client')
+const prisma=require('../config/db')
+const Client = prisma.client
 
 async function verifyToken(req,res,next){
     const authHeader = req.headers['authorization'];
@@ -7,7 +8,7 @@ async function verifyToken(req,res,next){
     if (!token) return res.status(401).json({ error: 'Access denied' });
     try {
         const user = jwt.verify(token, process.env.TOKEN_SECRET)
-        let exists = await User.findByPk(user.id)
+        let exists = await Client.findUnique({where:{id:user.id}})
         if(!exists) return res.status(401).json({ error: 'Access denied' });
         req.user = exists
         next()
